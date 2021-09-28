@@ -11,7 +11,9 @@
             <h3 class="login-box-msg">Admin Login</h3>
 
             <form action="{{ route('admin.login') }}" method="post">
-
+                @if(session('status'))
+                <span class="text-success">{{ session('status') }}</span>
+                @endisset
                 @csrf
               <div class="input-group mb-3">
                 <input type="email" class="form-control" placeholder="Enter Your Email" name="email">
@@ -54,7 +56,7 @@
 
 
             <p class="mb-1">
-              <a href="">I forgot my password</a>
+              <a href="{{ route('admin.password.request') }}">I forgot my password</a>
             </p>
             <p class="mb-0">
               <a href="" class="text-center">Register</a>

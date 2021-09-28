@@ -1,36 +1,55 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.backend_app')
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+@section('title' ,'Admin Forgot Passeord')
+
+
+@section('app_content')
+<div class="login-page">
+    <div class="login-box">
+        <div class="login-logo">
+          <a href=""><b>Admin </b>LTE</a>
         </div>
+        <!-- /.login-logo -->
+        <div class="card">
+          <div class="card-body login-card-body">
+            <p class="login-box-msg">Sign in to start your session</p>
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+            <form action="{{ route('admin.password.email') }}" method="post">
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                @csrf
+                @if(session('status'))
+                <span class="text-success">{{ session('status') }}</span>
+                @endisset
+              <div class="input-group mb-3">
+                <input type="email" class="form-control" placeholder="Email" name="email" value="admin@mail.com">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-envelope"></span>
+                  </div>
+                </div>
+              </div>
+              @error('email')
+              <span class="text-danger">{{ $message }}</span>
+            @enderror
+              <div class="row">
+                <div class="col-4">
+                  <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                </div>
+                <!-- /.col -->
+              </div>
+            </form>
 
-        <form method="POST" action="{{ route('password.email') }}">
-            @csrf
 
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
+            <p class="mb-1">
+              <a href="{{ route('admin.login') }}">Login</a>
+            </p>
+            {{-- <p class="mb-0">
+              <a href="{{ route('register') }}" class="text-center">Register</a>
+            </p> --}}
+          </div>
+          <!-- /.login-card-body -->
+        </div>
+      </div>
+</div>
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Email Password Reset Link') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+@stop
