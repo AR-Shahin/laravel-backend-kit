@@ -7,5 +7,6 @@
 <hr>
 <div class="text-center">
     <a href="{{ route('admin.login') }}" class="btn btn-sm btn-success"><i class="fa fa-user mr-1"></i> Admin Login</a>
+    {{ greetings() }}
 </div>
 @stop
