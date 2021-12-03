@@ -71,9 +71,9 @@
           </a>
         </li> --}}
         <li class="nav-item">
-            <a class="nav-link">
+            <a class="nav-link" href="{{ route('admin.crud.index') }}">
               <i class="nav-icon far fa-circle text-warning"></i>
-              <p>Skill</p>
+              <p>Crud</p>
             </a>
           </li>
           @auth('admin')

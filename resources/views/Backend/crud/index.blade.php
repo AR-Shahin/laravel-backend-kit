@@ -1,13 +1,13 @@
 
 @extends('layouts.backend_master')
-@section('title', 'Category')
+@section('title', 'Crud')
 @section('master_content')
 
 <div class="row">
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <h2 class="text-info">Manage Category</h2>
+                <h2 class="text-info">Manage Crud</h2>
             </div>
             <div class="card-body">
                 <table class="table table-bordered">
@@ -24,7 +24,7 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header">
-                <h2 class="text-info">Add Category</h2>
+                <h2 class="text-info">Add Crud</h2>
             </div>
             <div class="card-body">
                 <form id="addCategoryForm">
@@ -71,6 +71,7 @@
 @endsection
 
 @push('script')
+{{--
 <script>
     function getAllCategory(){
         axios.get("{{ route('admin.fetch-category') }}")
@@ -203,5 +204,5 @@ $('body').on('submit','#editForm',function(e){
        }
     })
 })
-</script>
+</script> --}}
 @endpush
