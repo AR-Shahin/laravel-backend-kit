@@ -14,9 +14,10 @@
                     <tr>
                         <th>SL</th>
                         <th>Name</th>
+                        <th>Image</th>
                         <th>Actions</th>
                     </tr>
-                <tbody id="catTbody"></tbody>
+                <tbody id="tbody"></tbody>
                 </table>
             </div>
         </div>
@@ -27,14 +28,19 @@
                 <h2 class="text-info">Add Crud</h2>
             </div>
             <div class="card-body">
-                <form id="addCategoryForm">
+                <form id="addCrudForm">
                     <div class="form-group">
-                        <label for="">Category Name</label>
+                        <label for="">Title</label>
                         <input type="text" class="form-control" id="name" placeholder="Enter Category Name">
-                        <span class="text-danger" id="catError"></span>
+                        <span class="text-danger" id="nameError"></span>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-success btn-block">Add New Category</button>
+                        <label for="">Image</label>
+                        <input type="file" class="form-control" id="image">
+                        <span class="text-danger" id="imageError"></span>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success btn-block">Add New Data</button>
                     </div>
                 </form>
             </div>
@@ -75,138 +81,73 @@
 <script>
 
 </script>
-{{--
+
 <script>
-    function getAllCategory(){
-        axios.get("{{ route('admin.fetch-category') }}")
+    function getAllData(){
+        axios.get("{{ route('admin.get-all-data') }}")
         .then((res) => {
+
             table_data_row(res.data)
         })
     }
-    getAllCategory();
+    getAllData();
 
-    function table_data_row(data) {
-            var	rows = '';
-            var i = 0;
-            $.each( data, function( key, value ) {
-                rows += '<tr>';
-                rows += '<td>'+ ++i +'</td>';
-                rows += '<td>'+value.name+'</td>';
-                rows += '<td data-id="'+value.id+'" class="text-center">';
-                rows += '<a class="btn btn-sm btn-info text-light" id="editRow" data-id="'+value.slug+'" data-toggle="modal" data-target="#editModal">Edit</a> ';
-                rows += '<a class="btn btn-sm btn-danger text-light"  id="deleteRow" data-id="'+value.slug+'" >Delete</a> ';
-                rows += '</td>';
-                rows += '</tr>';
-            });
-
-            $('#catTbody').html(rows)
+    function table_data_row(items) {
+        let loop =  items.map((item,index) => {
+            return `
+            <tr>
+                <td>${++index}</td>
+                <td>${item.name}</td>
+                <td><img src="{{ asset('${item.image}') }}" width="80px"></td>
+                <td class="text-center">
+                    <a href="" class="btn btn-sm btn-success" data-id="${item.slug}" data-toggle="modal" data-target="#viewModal" id="viewRow"><i class="fa fa-eye"></i></a>
+                    <a href="" class="btn btn-sm btn-info" data-id="${item.slug}" data-toggle="modal" data-target="#editModal" id="editRow"><i class="fa fa-edit"></i></a>
+                    <a href="" id="deleteRow" class="btn btn-sm btn-danger" data-id="${item.slug}"><i class="fa fa-trash-alt"></i></a>
+                </td>
+            </tr>
+            `
+        });
+        loop = loop.join("")
+        const tbody = $$('#tbody')
+        tbody.innerHTML = loop
  }
 
  // store
- $('body').on('submit','#addCategoryForm',function(e){
+ $('body').on('submit','#addCrudForm',function(e){
     e.preventDefault();
     let name = $('#name');
-    let catError = $('#catError');
-    // console.log(name.val());
-    catError.text('');
+    let nameError = $('#nameError');
+    let image = $('#image');
+    let imageError = $('#imageError');
+    nameError.text('');
+    imageError.text('');
     if(name.val() === ''){
-        catError.text('Field Must not be Empty!')
+        nameError.text('Field Must not be Empty!')
         return null;
     }
-    axios.post("{{ route('admin.category.store') }}",{
-        name: name.val()
-    })
+
+    const data = new FormData();
+    data.append('name',name.val());
+    data.append('image', document.getElementById('image').files[0]);
+    const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+    //  console.log(image.files[0]);
+    //  return
+    axios.post("{{ route('admin.crud.store') }}",data)
     .then((res) => {
-        getAllCategory();
-        name.val('');
+        getAllData();
         setSuccessMessage();
+        name.val('');
+        image.val(null)
     })
     .catch((err)=>{
        if(err.response.data.errors.name){
-           catError.text(err.response.data.errors.name[0])
+           nameError.text(err.response.data.errors.name[0])
+       }
+       if(err.response.data.errors.image){
+           imageError.text(err.response.data.errors.image[0])
        }
     })
  })
 
- // delete
-
-$('body').on('click','#deleteRow',function(){
-    let slug = $(this).attr('data-id');
-    let url = base_url + '/admin/category/' + slug;
-    const swalWithBootstrapButtons = Swal.mixin({
-  customClass: {
-    confirmButton: 'btn btn-success',
-    cancelButton: 'btn btn-danger'
-  },
-  buttonsStyling: false
-})
-
-swalWithBootstrapButtons.fire({
-  title: 'Are you sure?',
-  text: "You won't be able to revert this!",
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonText: 'Yes, delete it!',
-  cancelButtonText: 'No, cancel!',
-  reverseButtons: true,
-  margin : '5em',
-}).then((result) => {
-  if (result.isConfirmed) {
-    axios.delete(url).then(res => {
-   getAllCategory();
-})
-    swalWithBootstrapButtons.fire(
-      'Deleted!',
-      'Your file has been deleted.',
-      'success'
-    )
-  } else if (
-    /* Read more about handling dismissals below */
-    result.dismiss === Swal.DismissReason.cancel
-  ) {
-    swalWithBootstrapButtons.fire(
-      'Cancelled',
-      'Your imaginary file is safe :)',
-      'error'
-    )
-  }
-})
-
-})
-
-// edit
-$('body').on('click','#editRow',function(){
-    let slug = $(this).data('id');
-    let url = `${base_path}/admin/category/${slug}`;
-    let edit_name = $('#edit_name');
-    let edit_cat_slug = $('#edit_cat_slug');
-    let catEditError = $('#catEditError');
-
-    axios.get(url).then(res => {
-        let {data} = res;
-        edit_name.val(data.name)
-        edit_cat_slug.val(data.slug);
-    }).catch(err => {
-        console.log(err);
-    })
-})
-
-// update
-$('body').on('submit','#editForm',function(e){
-    e.preventDefault()
-    let slug = $('#edit_cat_slug').val();
-    let url = `${base_path}/admin/category/${slug}`;
-    axios.put(url,{
-        name : $('#edit_name').val()
-    }).then(res =>{
-        $('#editModal').modal('toggle')
-        getAllCategory();
-        setSuccessMessage('Data Updated Successfully!')
-    }).catch(err =>{
-        if(err.response.data.errors.name){
-           $('#catEditError').text(err.response.data.errors.name[0])
-       }
-    })
-})
-</script> --}}
+</script>
 @endpush
