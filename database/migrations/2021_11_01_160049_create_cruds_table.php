@@ -16,6 +16,7 @@ class CreateCrudsTable extends Migration
         Schema::create('cruds', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('image');
             $table->timestamps();
         });
     }

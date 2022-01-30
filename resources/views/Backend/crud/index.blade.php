@@ -71,6 +71,10 @@
 @endsection
 
 @push('script')
+
+<script>
+
+</script>
 {{--
 <script>
     function getAllCategory(){
