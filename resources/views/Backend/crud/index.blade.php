@@ -59,28 +59,32 @@
         </div>
         <div class="modal-body">
           <form action="" id="editForm">
-            <div class="form-group">
-                <label for="">Category Name</label>
-                <input type="text" class="form-control" id="edit_name" placeholder="Enter Category Name">
-                <input type="hidden" id="edit_cat_slug">
-                <span class="text-danger" id="catEditError"></span>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-success btn-block">Update Category</button>
-            </div>
+
           </form>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- View Modal -->
+  <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">View Data</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="viewData">
+
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 
 @push('script')
-
-<script>
-
-</script>
 
 <script>
     function getAllData(){
@@ -88,6 +92,7 @@
         .then((res) => {
 
             table_data_row(res.data)
+
         })
     }
     getAllData();
@@ -110,6 +115,7 @@
         loop = loop.join("")
         const tbody = $$('#tbody')
         tbody.innerHTML = loop
+
  }
 
  // store
@@ -149,5 +155,95 @@
     })
  })
 
+
+ // delete
+
+$('body').on('click','#deleteRow',function(e){
+    e.preventDefault()
+    let slug = $(this).attr('data-id');
+    const url = `${base_url_admin}/crud/${slug}`;
+    console.log(url);
+    deleteDataWithAlert(url,getAllData);
+})
+
+
+// view
+$('body').on('click','#viewRow',function(){
+    let slug = $(this).data('id');
+    axios.get(`${base_url_admin}/crud/${slug}`)
+    .then(res=> {
+        let {data:crud} = res
+        let viewData = $$('#viewData');
+        viewData.innerHTML = `
+        <table class="table table-bordered">
+            <tr>
+                <th>Name</th>
+                <td>${crud.name}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{ asset('${crud.image}') }}" width="100px" alt=""></td>
+            </tr>
+        </table>
+        `
+    });
+});
+
+$('body').on('click','#editRow',function(){
+    let slug = $(this).data('id');
+    let url = `${base_url_admin}/crud/${slug}`;
+    axios.get(url).then(res => {
+        let {data} = res;
+        let form = $$('#editForm');
+        form.innerHTML = `<div class="form-group">
+                <label for="">Name</label>
+                <input type="text" class="form-control" id="edit_name" value="${data.name}">
+                <input type="hidden" id="edit_slug" value="${data.slug}">
+                <span class="text-danger" id="catNameError"></span>
+            </div>
+            <div class="form-group">
+                <label for=""> Image</label>
+                <input name="image" type="file" class="form-control" id="editImage">
+                <span class="text-danger" id="imageEditError"></span>
+                <img src="{{ asset('${data.image}') }}" alt="" width="100px" class="mt-3">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success btn-block">Update</button>
+            </div>
+            `
+    }).catch(err => {
+        console.log(err);
+    })
+})
+
+// update
+$('body').on('submit','#editForm',function(e){
+    e.preventDefault()
+    let slug = $('#edit_slug').val();
+    let url = `${base_url_admin}/crud/${slug}`;
+    let editImage = $('#editImage');
+    let editName = $('#edit_name')
+    if(editImage.val()){
+        const data = new FormData();
+        const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+        data.append('image',document.getElementById('editImage').files[0]);
+        log(document.getElementById('editImage').files[0])
+        sendUpdateAjaxRequest(url,{name:editName.val(),image:data}).then(res => {
+            getAllCategory();
+            setSuccessMessage('Data Update Successfully!')
+            $('#editModal').modal('toggle')
+        })
+    }else{
+        sendUpdateAjaxRequest(url,{name: editName.val()}).then(res => {
+            getAllCategory();
+            setSuccessMessage('Data Update Successfully!')
+            $('#editModal').modal('toggle')
+        })
+    }
+})
+const sendUpdateAjaxRequest = (url,data) => {
+    log(data)
+    return axios.put(url,data);
+}
 </script>
 @endpush

@@ -31,4 +31,47 @@ class CrudController extends Controller
             return true;
         }
     }
+
+    public function show(Crud $crud)
+    {
+        return $crud;
+    }
+
+    public function edit(Crud $crud)
+    {
+        return $crud;
+    }
+
+    public function destroy(Crud $crud)
+    {
+        $image = $crud->image;
+        File::deleteFile($image);
+        return $crud->delete();
+    }
+    public function update(CrudRequest $request, Crud $crud)
+    {
+        info($request->all());
+        if ($request->has('file')) {
+            dd($request->image);
+            $olgImage = $category->image;
+            info($request->file('image'));
+            $category =   $category->update([
+                'name' => $request->name,
+                'slug' => $request->name,
+                'image' => File::upload($request->file('image'), 'category')
+            ]);
+            File::deleteFile($olgImage);
+        } else {
+            $category =   $category->update([
+                'name' => $request->name,
+                'slug' => $request->name
+            ]);
+        }
+
+        if ($category) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -23,9 +23,15 @@ class CrudRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => ['required', 'unique:cruds,name'],
-            'image' => ['required', 'mimes:png,jpg']
-        ];
+        if ($this->method() === 'POST') {
+            return [
+                'name' => "required|unique:cruds,name",
+                'image' => ['required', 'image', 'mimes:png,jpg,jpeg']
+            ];
+        } else {
+            return [
+                'name' => "required|unique:cruds,name,{$this->category->id}",
+            ];
+        }
     }
 }
