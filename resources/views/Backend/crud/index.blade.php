@@ -88,7 +88,7 @@
 
 <script>
     function getAllData(){
-        axios.get("{{ route('admin.get-all-data') }}")
+        axios.get("{{ route('admin.crud.get-all-data') }}")
         .then((res) => {
 
             table_data_row(res.data)
@@ -205,7 +205,7 @@ $('body').on('click','#editRow',function(){
             <div class="form-group">
                 <label for=""> Image</label>
                 <input name="image" type="file" class="form-control" id="editImage">
-                <span class="text-danger" id="imageEditError"></span>
+                <span class="text-danger" id="imageEditError"></span> <br>
                 <img src="{{ asset('${data.image}') }}" alt="" width="100px" class="mt-3">
             </div>
             <div class="form-group">
@@ -224,29 +224,42 @@ $('body').on('submit','#editForm',function(e){
     let url = `${base_url_admin}/crud/${slug}`;
     let editImage = $('#editImage');
     let editName = $('#edit_name')
+
+    let editNameError = $('#editNameError')
+    let imageEditError = $('#imageEditError')
+    editNameError.val("")
+    imageEditError.val("")
     if(editImage.val()){
         const data = new FormData();
         data.append('name',editName.val());
         data.append('image', document.getElementById('editImage').files[0]);
-        log(data.get('image'))
+        // log(data.get('image'))
         const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
-        axios.put("{{ route('admin.update') }}",{name:data.get('name'),image : data.get('image')},config).then(res => {
+        axios.post(url,data).then(res => {
             getAllData();
             setSuccessMessage('Data Update Successfully!')
             $('#editModal').modal('toggle')
+        }).catch(err => {
+            if(err.response.data.errors.image){
+            imageEditError.text(err.response.data.errors.image[0])
+       }
         })
     }else{
         sendUpdateAjaxRequest(url,{name: editName.val()}).then(res => {
             getAllData();
             setSuccessMessage('Data Update Successfully!')
             $('#editModal').modal('toggle')
+        }).catch(err => {
+            if(err.response.data.errors.name){
+                editNameError.text(err.response.data.errors.name[0])
+       }
         })
     }
 })
 const sendUpdateAjaxRequest = (url,data) => {
 
-    return axios.put(url,data);
+    return axios.post(url,data);
 }
 </script>
 @endpush

@@ -24,7 +24,7 @@ class CrudController extends Controller
     {
         $crud =  Crud::create([
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $request->name,
             'image' => File::upload($request->file('image'), 'crud')
         ]);
         if ($crud) {
@@ -48,14 +48,18 @@ class CrudController extends Controller
         File::deleteFile($image);
         return $crud->delete();
     }
-    public function update(CrudRequest $request, Crud $crud)
+    public function update(Request $request, Crud $crud)
     {
-        dd($request->file('image'));
-        return $request->all();
-        if ($request->has('file')) {
 
+        $request->validate([
+            'name' => "required|unique:cruds,name,{$crud->id}",
+        ]);
+
+        if ($request->file('image')) {
+            $request->validate([
+                'image' => ['required', 'image', 'mimes:png,jpg,jpeg']
+            ]);
             $olgImage = $crud->image;
-            info('okkkk');
             $crud =   $crud->update([
                 'name' => $request->name,
                 'slug' => $request->name,
