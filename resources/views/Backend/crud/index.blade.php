@@ -189,6 +189,7 @@ $('body').on('click','#viewRow',function(){
     });
 });
 
+// edit
 $('body').on('click','#editRow',function(){
     let slug = $(this).data('id');
     let url = `${base_url_admin}/crud/${slug}`;
@@ -199,7 +200,7 @@ $('body').on('click','#editRow',function(){
                 <label for="">Name</label>
                 <input type="text" class="form-control" id="edit_name" value="${data.name}">
                 <input type="hidden" id="edit_slug" value="${data.slug}">
-                <span class="text-danger" id="catNameError"></span>
+                <span class="text-danger" id="editNameError"></span>
             </div>
             <div class="form-group">
                 <label for=""> Image</label>
@@ -225,24 +226,26 @@ $('body').on('submit','#editForm',function(e){
     let editName = $('#edit_name')
     if(editImage.val()){
         const data = new FormData();
+        data.append('name',editName.val());
+        data.append('image', document.getElementById('editImage').files[0]);
+        log(data.get('image'))
         const config = { headers: { 'Content-Type': 'multipart/form-data' } };
-        data.append('image',document.getElementById('editImage').files[0]);
-        log(document.getElementById('editImage').files[0])
-        sendUpdateAjaxRequest(url,{name:editName.val(),image:data}).then(res => {
-            getAllCategory();
+
+        axios.put("{{ route('admin.update') }}",{name:data.get('name'),image : data.get('image')},config).then(res => {
+            getAllData();
             setSuccessMessage('Data Update Successfully!')
             $('#editModal').modal('toggle')
         })
     }else{
         sendUpdateAjaxRequest(url,{name: editName.val()}).then(res => {
-            getAllCategory();
+            getAllData();
             setSuccessMessage('Data Update Successfully!')
             $('#editModal').modal('toggle')
         })
     }
 })
 const sendUpdateAjaxRequest = (url,data) => {
-    log(data)
+
     return axios.put(url,data);
 }
 </script>

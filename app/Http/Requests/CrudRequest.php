@@ -30,7 +30,7 @@ class CrudRequest extends FormRequest
             ];
         } else {
             return [
-                'name' => "required|unique:cruds,name,{$this->category->id}",
+                // 'name' => "required|unique:cruds,name,{$this->crud->id}",
             ];
         }
     }

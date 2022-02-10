@@ -50,25 +50,26 @@ class CrudController extends Controller
     }
     public function update(CrudRequest $request, Crud $crud)
     {
-        info($request->all());
+        dd($request->file('image'));
+        return $request->all();
         if ($request->has('file')) {
-            dd($request->image);
-            $olgImage = $category->image;
-            info($request->file('image'));
-            $category =   $category->update([
+
+            $olgImage = $crud->image;
+            info('okkkk');
+            $crud =   $crud->update([
                 'name' => $request->name,
                 'slug' => $request->name,
-                'image' => File::upload($request->file('image'), 'category')
+                'image' => File::upload($request->file('image'), 'crud')
             ]);
             File::deleteFile($olgImage);
         } else {
-            $category =   $category->update([
+            $crud =   $crud->update([
                 'name' => $request->name,
                 'slug' => $request->name
             ]);
         }
 
-        if ($category) {
+        if ($crud) {
             return true;
         } else {
             return false;

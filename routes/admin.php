@@ -12,5 +12,6 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('crud', CrudController::class)->except('create');
+    Route::put('update', [CrudController::class, 'update'])->name('update');
     Route::get('get-all-data', [CrudController::class, 'getAllData'])->name('get-all-data');
 });
