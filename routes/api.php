@@ -14,6 +14,6 @@ Route::controller(ProductController::class)->prefix('products')->group(function 
     Route::get('/', 'index');
     Route::post('/', 'store');
     Route::get('/{slug}', 'show');
-    Route::put('/{slug}', 'update');
+    Route::post('update/{slug}', 'update');
     Route::delete('/{slug}', 'delete');
 });
