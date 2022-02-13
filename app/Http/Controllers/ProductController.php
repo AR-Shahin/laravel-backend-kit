@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Illuminate\Database\QueryException;
+use App\Actions\File\File;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -23,6 +26,29 @@ class ProductController extends Controller
     }
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'unique:products,name'],
+            'price' => ['required'],
+            'description' => ['required'],
+            'image' => ['required', 'image', 'mimes:jpg,png'],
+        ]);
+
+        if ($validator->fails()) {
+            return sendErrorResponse('Data Validation Error!', $validator->errors(), 422);
+        }
+
+        $data = $validator->validated();
+        $data['slug'] = Str::slug($data['name']);
+        $data['image'] = File::upload($request->file('image'), 'product');
+
+        try {
+            $product = Product::create($data);
+            if ($product) {
+                return sendSuccessResponse($product, 'Data Created Successfully!', 201);
+            }
+        } catch (QueryException $e) {
+            return sendErrorResponse("Something Went Wrong! {$e->getMessage()}", 500);
+        }
     }
     public function show($slug)
     {
