@@ -13,7 +13,7 @@ class CrudController extends Controller
 {
     public function index()
     {
-        return view('Backend.crud.index');
+        return view('backend.crud.index');
     }
 
     public function getAllData()
