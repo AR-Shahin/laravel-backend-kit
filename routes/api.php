@@ -10,6 +10,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+# Product Api
 Route::controller(ProductController::class)->prefix('products')->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
