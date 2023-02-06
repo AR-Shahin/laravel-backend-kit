@@ -76,6 +76,12 @@
               <p>Crud</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.profile') }}">
+              <i class="nav-icon fa fa-user text-warning"></i>
+              <p>Profile</p>
+            </a>
+          </li>
           @auth('admin')
           <li class="nav-item">
             <form action="{{ route('admin.logout') }}" method="POST">
