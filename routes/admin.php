@@ -29,4 +29,6 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
         Route::get('/', 'index');
         Route::post('/update', 'update')->name('.update');
     });
+
+    
 });

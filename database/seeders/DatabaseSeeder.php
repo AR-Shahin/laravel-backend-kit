@@ -20,10 +20,17 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@mail.com',
             'password' => bcrypt('password')
         ]);
-        Admin::create([
-            'name' => 'Admin 2',
-            'email' => 'admin2@mail.com',
-            'password' => bcrypt('password')
+        for ($i=0; $i < 50; $i++) {
+            Admin::create([
+                'name' => "Admin $i",
+                'email' => "admin$i@mail.com",
+                'password' => bcrypt('password')
+            ]);
+        }
+
+        $this->call([
+            DepartmentSeeder::class,
+            DesignationSeeder::class
         ]);
         // \App\Models\Admin::factory(10)->create();
         Product::factory(10)->create();
