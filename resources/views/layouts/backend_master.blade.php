@@ -28,7 +28,7 @@
                 </div>
             @endif
             <!-- Main content -->
-            <section class="content">
+            <section class="content pt-3">
                 <div class="container-fluid">
                     <!-- Small boxes (Stat box) -->
                     <!-- All content goes form here -->

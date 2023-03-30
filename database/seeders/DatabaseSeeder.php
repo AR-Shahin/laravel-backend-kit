@@ -29,10 +29,9 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call([
-            DepartmentSeeder::class,
-            DesignationSeeder::class
+         
         ]);
         // \App\Models\Admin::factory(10)->create();
-        Product::factory(10)->create();
+        //Product::factory(10)->create();
     }
 }

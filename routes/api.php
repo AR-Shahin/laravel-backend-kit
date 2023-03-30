@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\API\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -11,9 +11,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 # Product Api
-Route::controller(ProductController::class)->prefix('products')->group(function () {
+Route::controller(ProductController::class)->name('product.')->prefix('products')->group(function () {
     Route::get('/', 'index');
-    Route::post('/', 'store');
+    Route::post('/', 'store')->name('store');
     Route::get('/{slug}', 'show');
     Route::post('update/{slug}', 'update');
     Route::delete('/{slug}', 'delete');

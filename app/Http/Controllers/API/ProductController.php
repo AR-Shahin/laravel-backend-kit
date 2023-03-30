@@ -31,7 +31,7 @@ class ProductController extends Controller
             'name' => ['required', 'unique:products,name'],
             'price' => ['required'],
             'description' => ['required'],
-            'image' => ['required', 'image', 'mimes:jpg,png'],
+            'image' => [ 'image', 'mimes:jpg,png'],
         ]);
 
         if ($validator->fails()) {
@@ -40,8 +40,9 @@ class ProductController extends Controller
 
         $data = $validator->validated();
         $data['slug'] = Str::slug($data['name']);
-        $data['image'] = File::upload($request->file('image'), 'product');
-
+        if($request->has('image')){
+            $data['image'] = File::upload($request->file('image'), 'product');
+        }
         try {
             $product = Product::create($data);
             if ($product) {
