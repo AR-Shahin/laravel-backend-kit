@@ -26,3 +26,15 @@ Route::get('/test', function () {
 });
 
 
+
+
+# SummerNote Image Upload
+Route::post('upload', function (Request $request) {
+    $image = $request->file('file');
+    $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+    $path = $image->storeAs('public/images', $filename);
+
+    return response()->json([
+        'url' => asset('storage/images/' . $filename),
+    ]);
+});
