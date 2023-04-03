@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\{
+    AdminController,
     CrudController,
     DashboardController,
     ProfileController
@@ -10,6 +11,12 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function () {
+
+      # Admin
+    Route::controller(AdminController::class)->group(function() {
+        Route::get('/', 'index');
+        
+    });
 
     # Dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -30,5 +37,6 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
         Route::post('/update', 'update')->name('.update');
     });
 
-    
+
+
 });

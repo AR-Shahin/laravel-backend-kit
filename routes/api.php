@@ -13,7 +13,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 # Product Api
 Route::controller(ProductController::class)->name('product.')->prefix('products')->group(function () {
     Route::get('/', 'index');
-    Route::post('/', 'store')->name('store');
+    Route::post('/', 'store');
     Route::get('/{slug}', 'show');
     Route::post('update/{slug}', 'update');
     Route::delete('/{slug}', 'delete');

@@ -1,10 +1,10 @@
 <?php
 
 use App\Models\Admin;
-use App\Models\Department;
-use App\Models\Designation;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CRUDController;
 
 
 
@@ -17,8 +17,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__ . '/admin_auth.php';
-require __DIR__ . '/admin.php';
+
 
 Route::get('/test', function () {
     $admins = Admin::all();
@@ -38,3 +37,6 @@ Route::post('upload', function (Request $request) {
         'url' => asset('storage/images/' . $filename),
     ]);
 });
+
+
+Route::get('query',[CRUDController::class,'index']);
