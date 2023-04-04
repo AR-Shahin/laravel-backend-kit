@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
+
 function greetings($name = 'Shahin')
 {
     return "Hello {$name}";
@@ -31,4 +33,12 @@ function sendErrorResponse($error, $errorMessages = [], $code = 404)
         $response['data'] = $errorMessages;
     }
     return response()->json($response, $code);
+}
+
+
+function userRolePermissions($roleId)
+{
+    return DB::table('permission_role')
+    ->where('role_id',$roleId)
+    ->get();
 }

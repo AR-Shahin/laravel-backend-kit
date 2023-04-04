@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call([
-         
+         PermissionSeeder::class
         ]);
         // \App\Models\Admin::factory(10)->create();
         //Product::factory(10)->create();

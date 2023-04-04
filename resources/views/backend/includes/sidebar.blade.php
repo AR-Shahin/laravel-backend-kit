@@ -20,36 +20,30 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-          {{-- <li class="nav-item menu-open">
+          <li class="nav-item "> <!-- menu-open : Dynamic Menu Open-->
             <a href="#" class="nav-link ">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fa fa-gear"></i>
               <p>
-                Dashboard
+                Settings
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
+                <a href="{{ route('admin.role.') }}" class="nav-link "> <!-- active : for active  -->
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Role</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v2</p>
+                <a href="{{ route('admin.permission.') }}" class="nav-link ">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Permission</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v3</p>
-                </a>
-              </li>
+
             </ul>
-          </li> --}}
+          </li>
           {{-- <li class="nav-item">
             <a href="@route('category.index')" class="nav-link">
               <i class="nav-icon far fa-circle text-warning"></i>
@@ -72,13 +66,13 @@
         </li> --}}
         <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.crud.index') }}">
-              <i class="nav-icon far fa-circle text-warning"></i>
+              <i class="nav-icon far fa-circle "></i>
               <p>Crud</p>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.profile') }}">
-              <i class="nav-icon fa fa-user text-warning"></i>
+              <i class="nav-icon fa fa-user "></i>
               <p>Profile</p>
             </a>
           </li>
