@@ -52,7 +52,8 @@ class RoleController extends Controller
     public function edit(Role $role, Permission $permission)
     {
       $permissions  = $permission->getPermission();
-      $userRolePermissions = userRolePermissions($role->id);
+
+       $userRolePermissions = userRolePermissions($role->id);
 
       $role_permission       = [];
 
@@ -60,24 +61,30 @@ class RoleController extends Controller
          $role_permission[$r->permission_id] = 1;
       }
 
-      return view('admin.settings.role.edit',[
+      return view('backend.settings.role.edit',[
         'permissions' => $permissions,
         'role' => $role,
         'role_permission' => $role_permission
       ]);
     }
 
-    public function update(Role $role, EditRoleRequest $request)
+    public function update(Role $role, Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'display_name' => 'required'
+        ]);
+
+      
         $role->updateRole($role, $request);
 
-        return $this->success('role','Role updated successfully!');
+        return redirect()->route('admin.role.');
     }
 
     public function delete(Role $role)
     {
         $role->delete();
 
-        return $this->success('role','Role deleted successfully!');
+        return redirect()->route('admin.role.');
     }
 }

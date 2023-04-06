@@ -32,8 +32,7 @@
                         <td>{{ $role->display_name }}</td>
                         <td>{{ $role->description }}</td>
                         <td>
-
-
+                            <a href="{{ route('admin.role.edit',$role->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
                            <form action="{{ route('admin.role.delete', $role->id) }}" class="d-inline" method="POST">
                             @csrf
                             @method('DELETE')

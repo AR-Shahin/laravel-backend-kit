@@ -51,8 +51,9 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
     Route::controller(RoleController::class)->name('role.')->prefix('role')->group(function() {
         Route::get('/', 'index');
         Route::get('/create', 'create')->name('create');
+        Route::get('/edit/{role}', 'edit')->name('edit');
         Route::post('/store', 'store')->name('store');
-        Route::post('/update', 'update')->name('update');
+        Route::post('/update/{role}', 'update')->name('update');
         Route::delete('/delete/{role}', 'delete')->name('delete');
     });
 
