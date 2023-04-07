@@ -59,14 +59,17 @@
             </div>
             <div class="form--inline">
                 @foreach ($permissions as $permission)
+               
                     @if($previous_permission != $permission->description)
                         <div class="col mb-0" style="margin-top:10px;">
                             <input
                                 type="checkbox"
                                 class="form-check-input {{ lcfirst($permission->description) }}"
                                 value="{{$permission->id}}"
+
                                 onClick="selectPermission('{{ lcfirst($permission->description) }}')"
-                            />
+                            /> <!-- Ekhaney ja korar krte hbe -->
+
                             <label for="emailBasic" class="form-label">{{ ucfirst($permission->description) }}</label>
                         </div>
                     @endif
@@ -83,6 +86,7 @@
                             >
                             <label class="form-check-label" for="{{$permission->id}}">{{$permission->display_name}}</label>
                         </div>
+
                         @php
                             $previous_permission = $permission->description;
                             $check = isset( $permissions[$loop->index +1]->description) ? $permissions[$loop->index +1]->description : "-";

@@ -9,6 +9,7 @@ use App\Http\Controllers\CRUDController;
 
 
 Route::get('/', function () {
+
     // return view('layouts.frontend_app');
     return view('welcome');
 });
