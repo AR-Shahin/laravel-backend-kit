@@ -32,7 +32,7 @@ class HasPermission
                             ->first();
 
             $controllerAction = class_basename(Route::currentRouteAction());
-
+           // dd($controllerAction);
             $permission = false;
             $permission_id_id = 0;
 
@@ -67,6 +67,7 @@ class HasPermission
             }
             return abort(403);
         }
+        // return redirect()->back();
         return abort(403);
         // return 'you are not authorize!';
     }

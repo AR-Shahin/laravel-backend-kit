@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\Permission;
 use App\Models\Product;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,11 +17,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Admin::create([
+        $this->call([
+         PermissionSeeder::class,
+         RoleSeeder::class,
+        ]);
+
+        $role = Role::first();
+        $permissions = Permission::select("id")->get();
+        $role->permissions()->sync($permissions);
+
+        $admin = Admin::create([
             'name' => 'Admin',
             'email' => 'admin@mail.com',
             'password' => bcrypt('password')
         ]);
+
+        $admin->roles()->attach(1);
+
         for ($i=0; $i < 50; $i++) {
             Admin::create([
                 'name' => "Admin $i",
@@ -27,10 +41,6 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('password')
             ]);
         }
-
-        $this->call([
-         PermissionSeeder::class
-        ]);
         // \App\Models\Admin::factory(10)->create();
         //Product::factory(10)->create();
     }

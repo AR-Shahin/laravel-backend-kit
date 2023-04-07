@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Notifications\AdminResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 
 class Admin extends Authenticatable implements LaratrustUser
@@ -55,4 +56,7 @@ class Admin extends Authenticatable implements LaratrustUser
     {
         $this->notify(new AdminResetPasswordNotification($token));
     }
+
+
 }
+

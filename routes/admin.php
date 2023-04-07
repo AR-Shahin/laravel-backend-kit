@@ -14,16 +14,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function () {
 
-      # Admin
-    Route::controller(AdminController::class)->group(function() {
-        Route::get('/', 'index');
+    # Admin
+    Route::middleware("authorized")->controller(AdminController::class)->group(function() {
+        Route::get('/', 'index')->name("index");
+        Route::get('/create', 'create')->name("create");
+        Route::post('/store', 'store')->name("store");
 
     });
 
     # Dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::controller(CrudController::class)->name('crud.')->prefix('crud')->group(function () {
+    Route::middleware("authorized")->controller(CrudController::class)->name('crud.')->prefix('crud')->group(function () {
 
         Route::get('get-all-data', 'getAllData')->name('get-all-data');
         Route::get('/', 'index')->name('index');
@@ -40,7 +42,7 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
     });
 
     # Permission
-    Route::controller(PermissionController::class)->name('permission.')->prefix('permission')->group(function() {
+    Route::middleware("authorized")->controller(PermissionController::class)->name('permission.')->prefix('permission')->group(function() {
         Route::get('/', 'index');
         Route::post('/store', 'store')->name('store');
         Route::post('/update', 'update')->name('update');
@@ -48,7 +50,7 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
     });
 
     # Role
-    Route::controller(RoleController::class)->name('role.')->prefix('role')->group(function() {
+    Route::middleware("authorized")->controller(RoleController::class)->name('role.')->prefix('role')->group(function() {
         Route::get('/', 'index');
         Route::get('/create', 'create')->name('create');
         Route::get('/edit/{role}', 'edit')->name('edit');

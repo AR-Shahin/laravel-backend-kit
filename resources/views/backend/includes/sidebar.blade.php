@@ -44,6 +44,24 @@
 
             </ul>
           </li>
+          <li class="nav-item "> <!-- menu-open : Dynamic Menu Open-->
+            <a href="#" class="nav-link ">
+              <i class="nav-icon fa fa-users"></i>
+              <p>
+                Admins
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.index') }}" class="nav-link ">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Manage</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
           {{-- <li class="nav-item">
             <a href="@route('category.index')" class="nav-link">
               <i class="nav-icon far fa-circle text-warning"></i>

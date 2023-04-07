@@ -12,6 +12,7 @@
                 <th>SL</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Role</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -21,6 +22,7 @@
             <tr>
                 <td>{{ $loop->index + 1 }}</td>
                 <td>{{ $admin->name }}</td>
+                <td>{{ $admin->email }}</td>
                 <td>{{ $admin->email }}</td>
                 <th>Action</th>
             </tr>
