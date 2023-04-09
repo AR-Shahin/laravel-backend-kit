@@ -26,9 +26,8 @@
   <link rel="stylesheet" href="{{ asset('backend') }}/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('backend') }}/plugins/summernote/summernote-bs4.min.css">
-  <link rel="stylesheet" href="{{ asset('datatable/css/buttons.dataTables.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('datatable/css/datatables.bootstrap5.css') }}">
-  <link rel="stylesheet" href="{{ asset('datatable/css/responsive.bootstrap5.css') }}
+
+
   @stack('css')
 
 </head>
@@ -65,14 +64,7 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 {{-- <script src="{{ asset('backend') }}/dist/js/pages/dashboard.js"></script> --}}
 
-<!-- Datatable -->
-<script src="{{ asset('datatable/js/jquery.dataTables.js') }}"></script>
-<script src="{{ asset('datatable/js/datatables.responsive.js') }}"></script>
-<script src="{{ asset('datatable/js/datatables-bootstrap5.js') }}"></script>
-<script src="{{ asset('datatable/js/responsive.bootstrap5.js') }}"></script>
-<script src="{{ asset('datatable/js/buttons.server-side.js') }}"></script>
-<script src="{{ asset('datatable/js/dataTables.buttons.min.js') }}"></script>
-<!-- End Datatable -->
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

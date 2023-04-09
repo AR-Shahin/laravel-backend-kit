@@ -1,3 +1,3 @@
-
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js">
-
+<link rel="stylesheet" href="{{ asset('datatable/css/buttons.dataTables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('datatable/css/datatables.bootstrap5.css') }}">
+<link rel="stylesheet" href="{{ asset('datatable/css/responsive.bootstrap5.css') }}">

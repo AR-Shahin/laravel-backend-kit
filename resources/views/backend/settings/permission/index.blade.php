@@ -2,7 +2,7 @@
 @extends('layouts.backend_master')
 @section('title', 'Permission')
 @push('css')
-{{-- <x-utility.data-table-css/> --}}
+<x-utility.datatable-css/>
 @endpush
 @section('master_content')
 <div class="card">
@@ -51,7 +51,7 @@
 @endsection
 
 @push('script')
-{{-- <x-utility.data-table-js/> --}}
+<x-utility.datatable-js/>
 <script>
    $('#permissionTable').DataTable();
 

@@ -1,4 +1,8 @@
-
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
-
+<!-- Datatable -->
+<script src="{{ asset('datatable/js/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('datatable/js/datatables.responsive.js') }}"></script>
+<script src="{{ asset('datatable/js/datatables-bootstrap5.js') }}"></script>
+<script src="{{ asset('datatable/js/responsive.bootstrap5.js') }}"></script>
+<script src="{{ asset('datatable/js/buttons.server-side.js') }}"></script>
+<script src="{{ asset('datatable/js/dataTables.buttons.min.js') }}"></script>
+<!-- End Datatable -->

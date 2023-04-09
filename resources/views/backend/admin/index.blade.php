@@ -2,7 +2,7 @@
 @extends('layouts.backend_master')
 @section('title', 'Admin')
 @push('css')
-
+<x-utility.datatable-css/>
 @endpush
 @section('master_content')
 <div class="container">
@@ -27,7 +27,7 @@
 @endsection
 
 @push('script')
-
+<x-utility.datatable-js/>
 <script>
       $(function () {
     var table = $('.data-table').DataTable({
