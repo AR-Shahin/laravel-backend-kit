@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\DB;
 
 function greetings($name = 'Shahin')
@@ -41,4 +42,18 @@ function userRolePermissions($roleId)
     return DB::table('permission_role')
     ->where('role_id',$roleId)
     ->get();
+}
+
+function checkAdminCanSee() :bool
+{
+    return \Laratrust::hasRole(auth()->user()->roles[0]->id);
+}
+
+
+function deleteAndEditButton($edit,$delete)
+{
+    return "
+    <a href='{$edit}}' class='btn btn-sm btn-info'><i class='fa fa-edit'></i></a>
+    <a href='{$delete}' class='btn btn-sm btn-danger'><i class='fa fa-trash'></i></a>
+    ";
 }

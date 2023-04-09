@@ -7,6 +7,7 @@ use App\Models\Permission;
 use App\Models\Product;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -32,7 +33,11 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password')
         ]);
 
-        $admin->roles()->attach(1);
+        DB::table("role_user")->insert([
+            "user_id" => 1,
+            "role_id" => 1,
+            "user_type" => "App\Models\Admin"
+        ]);
 
         for ($i=0; $i < 50; $i++) {
             Admin::create([

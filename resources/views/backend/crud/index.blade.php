@@ -10,7 +10,7 @@
                 <h2 class="text-info">Manage Crud</h2>
             </div>
             <div class="card-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered data-table">
                     <tr>
                         <th>SL</th>
                         <th>Name</th>

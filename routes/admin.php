@@ -15,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function () {
 
     # Admin
-    Route::middleware("authorized")->controller(AdminController::class)->group(function() {
+    Route::controller(AdminController::class)->group(function() {
         Route::get('/', 'index')->name("index");
         Route::get('/create', 'create')->name("create");
         Route::post('/store', 'store')->name("store");
+        Route::post('/edit', 'edit')->name("edit");
+        Route::get('/delete', 'delete')->name("delete");
 
     });
 

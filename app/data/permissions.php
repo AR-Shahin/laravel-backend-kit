@@ -22,17 +22,28 @@ return [
         "description" => "Crud",
     ],
     [
-        "name" => "CrudController@create",
-        "display_name" => "Create Crud",
+        "name" => "CrudController@store",
+        "display_name" => "Store Crud",
         "description" => "Crud",
     ],
     [
-        "name" => "CrudController@delete",
+        "name" => "CrudController@getAllData",
+        "display_name" => "All Crud",
+        "description" => "Crud",
+    ]
+    ,
+    [
+        "name" => "CrudController@show",
+        "display_name" => "Show Crud",
+        "description" => "Crud",
+    ]
+    ,
+    [
+        "name" => "CrudController@destroy",
         "display_name" => "Delete Crud",
         "description" => "Crud",
     ],
 
-    
     [
         "name" => "AdminController@index",
         "display_name" => "View Admin",

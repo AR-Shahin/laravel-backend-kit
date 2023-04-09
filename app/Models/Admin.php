@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 
-class Admin extends Authenticatable implements LaratrustUser
+class Admin extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable,HasRolesAndPermissions;
 
@@ -57,6 +57,11 @@ class Admin extends Authenticatable implements LaratrustUser
         $this->notify(new AdminResetPasswordNotification($token));
     }
 
+
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class, 'role_user',"user_id");
+    }
 
 }
 
