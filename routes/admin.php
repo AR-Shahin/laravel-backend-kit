@@ -41,6 +41,8 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
     Route::controller(ProfileController::class)->name('profile')->prefix('profile')->group(function() {
         Route::get('/', 'index');
         Route::post('/update', 'update')->name('.update');
+        Route::post('/update/password', 'updatePassword')->name('.update_password');
+        Route::post('/update/profile', 'updateProfile')->name('.update_profile');
     });
 
     # Permission

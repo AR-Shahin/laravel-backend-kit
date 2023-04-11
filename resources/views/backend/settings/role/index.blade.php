@@ -2,7 +2,7 @@
 @extends('layouts.backend_master')
 @section('title', 'Role')
 @push('css')
-<x-utility.datattable-css/>
+<x-utility.datatable-css/>
 @endpush
 @section('master_content')
 <div class="card">
