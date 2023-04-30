@@ -57,3 +57,10 @@ function deleteAndEditButton($edit,$delete)
     <a href='{$delete}' class='btn btn-sm btn-danger'><i class='fa fa-trash'></i></a>
     ";
 }
+
+function navMenuActive($url){
+   // dd($url);
+    $items = ["role","permission","admin"];
+
+    return in_array($url,$items);
+}

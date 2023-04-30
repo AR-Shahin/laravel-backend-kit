@@ -20,7 +20,9 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item "> <!-- menu-open : Dynamic Menu Open-->
+          <li class="nav-item @if (navMenuActive(request()->segment(2)))
+            menu-open
+          @endif "> <!-- menu-open : Dynamic Menu Open-->
             <a href="#" class="nav-link ">
               <i class="nav-icon fa fa-gear"></i>
               <p>
@@ -31,20 +33,22 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ route('admin.role.') }}" class="nav-link "> <!-- active : for active  -->
-                  <i class="fa fa-user nav-icon"></i>
+                    <i class="fa-solid fa-person-shelter nav-icon" ></i>
                   <p>Role</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('admin.permission.') }}" class="nav-link ">
-                  <i class="fa fa-user nav-icon"></i>
+                <i class="fa-solid fa-person-dots-from-line nav-icon"></i>
                   <p>Permission</p>
                 </a>
               </li>
 
             </ul>
           </li>
-          <li class="nav-item "> <!-- menu-open : Dynamic Menu Open-->
+          <li class="nav-item @if (navMenuActive(request()->segment(1)))
+            menu-open
+          @endif"> <!-- menu-open : Dynamic Menu Open-->
             <a href="#" class="nav-link ">
               <i class="nav-icon fa fa-users"></i>
               <p>
@@ -55,7 +59,7 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ route('admin.index') }}" class="nav-link ">
-                  <i class="fa fa-user nav-icon"></i>
+                    <i class="fa-solid fa-user-tie nav-icon"></i>
                   <p>Manage</p>
                 </a>
               </li>
@@ -90,7 +94,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.profile') }}">
-              <i class="nav-icon fa fa-user "></i>
+                <i class="fa-solid fa-id-badge nav-icon"></i>
               <p>Profile</p>
             </a>
           </li>
