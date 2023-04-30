@@ -32,7 +32,7 @@
                         <td>{{ $permission->display_name }}</td>
                         <td>{{ $permission->description }}</td>
                         <td>
-
+                        <a data-toggle="modal" data-target="#editModal_{{ $permission->id }}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
 
                            <form action="{{ route('admin.permission.delete', $permission->id) }}" class="d-inline" method="POST">
                             @csrf
@@ -48,6 +48,8 @@
 </div>
 
 @include("backend.settings.permission.modal._create")
+@include("backend.settings.permission.modal._edit",["permissions" => $permissions])
+
 @endsection
 
 @push('script')

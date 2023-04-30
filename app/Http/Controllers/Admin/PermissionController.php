@@ -33,11 +33,13 @@ class PermissionController extends Controller
         return view('admin.settings.permission.modal._edit',compact('permission'))->render();
     }
 
-    public function update(Permission $permission, UpdateRequest $request)
+    public function update(Permission $permission, Request $request)
     {
         $permission->updatePermission($permission, $request);
 
-        return $this->success('permission','Permission updated successfully!');
+        $this->success('success','Permission updated successfully!');
+
+        return back();
     }
 
     public function delete(Permission $permission)

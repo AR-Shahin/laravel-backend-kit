@@ -49,7 +49,7 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
     Route::middleware("authorized")->controller(PermissionController::class)->name('permission.')->prefix('permission')->group(function() {
         Route::get('/', 'index');
         Route::post('/store', 'store')->name('store');
-        Route::post('/update', 'update')->name('update');
+        Route::post('/update/{permission}', 'update')->name('update');
         Route::delete('/delete/{permission}', 'delete')->name('delete');
     });
 
