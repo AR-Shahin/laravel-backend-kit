@@ -22,7 +22,7 @@ class CrudController extends Controller
     }
     function store(CrudRequest $request)
     {
-        $crud =  Crud::create([
+        $crud = Crud::create([
             'name' => $request->name,
             'slug' => $request->name,
             'image' => File::upload($request->file('image'), 'crud')
