@@ -5,8 +5,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CRUDController;
-
-
+use App\Models\Foo;
 
 Route::get('/', function () {
 
@@ -41,3 +40,12 @@ Route::post('upload', function (Request $request) {
 
 
 Route::get('query',[CRUDController::class,'index']);
+
+Route::post("media-upload",function(Request $request) {
+    Foo::create([
+        "name" => $request->name,
+        "image" => $request->image,
+    ]);
+
+    return back();
+})->name("media_upload");
