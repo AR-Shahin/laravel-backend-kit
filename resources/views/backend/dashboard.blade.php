@@ -29,7 +29,17 @@
             </div>
         </form>
     </div>
+    <div class="col-md-6">
+        <form action="{{ route('csv_upload') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="input-group">
+                <input type="file" class="form-control" name="csv">
+                <button class="btn btn-sm btn-success">Upload</button>
+            </div>
+        </form>
+    </div>
     <hr>
+
     <table class="table table-sm table-bordered">
         <tr>
             <th>SL</th>
