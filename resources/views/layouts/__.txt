@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>@yield('title')</title>
+    <style>
+        .goog-te-banner-frame{
+    display:none !important
+}
+.goog-te-combo{
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+}
+.goog-te-gadget {
+    color: #040f1c00;
+}
+.goog-logo-link, .goog-logo-link:link, .goog-logo-link:visited, .goog-logo-link:hover, .goog-logo-link:active {
+ font-size: 12px;
+ font-weight: bold;
+ color: #040f1c00;
+ text-decoration: none;
+ visibility: hidden;
+}
+
+</style>
+</head>
+
+<body>
+    @yield('app_content')
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js">
+    </script>
+
+
+  <script type="text/javascript"
+            src= "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    </script>
+        <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement(
+                    {pageLanguage: 'en'},
+                    'google_translate_element'
+                );
+            }
+        </script>
+
+</body>
+
+</html>
