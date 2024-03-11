@@ -130,3 +130,9 @@ Route::post("csv-upload",function(Request $request) {
 //     }
 //     return "please upload csv file";
 // }
+
+
+Route::view('ui', 'ui');
+Route::post("ui",function(Request $request){
+    return $request->all();
+})->name("ui");
