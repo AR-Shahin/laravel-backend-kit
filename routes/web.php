@@ -7,8 +7,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CRUDController;
 use App\Models\Foo;
 
+
+
 Route::get('/', function () {
 
+
+    return;
     // return view('layouts.frontend_app');
     return view('welcome');
 });

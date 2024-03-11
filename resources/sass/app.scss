@@ -1,5 +1,11 @@
 
 // Bootstrap
+@mixin row-cols($count) {
+    > * {
+      flex: 0 0 auto;
+      width: divide(1, $count);
+    }
+  }
 @import 'bootstrap/scss/bootstrap';
 @import "../css/app.css";
 

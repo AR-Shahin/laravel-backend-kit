@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(): \Illuminate\Http\JsonResponse|string
     {
         try {
             $data = Product::latest()->get();

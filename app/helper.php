@@ -3,12 +3,12 @@
 
 use Illuminate\Support\Facades\DB;
 
-function greetings($name = 'Shahin')
+function greetings($name = 'Shahin'): string
 {
     return "Hello {$name}";
 }
 
-function sendSuccessResponse($result, $message, $code = 200)
+function sendSuccessResponse($result, $message, $code = 200): \Illuminate\Http\JsonResponse
 {
     $response = [
         'success' => true,
@@ -22,7 +22,7 @@ function sendSuccessResponse($result, $message, $code = 200)
 }
 
 
-function sendErrorResponse($error, $errorMessages = [], $code = 404)
+function sendErrorResponse($error, $errorMessages = [], $code = 404): \Illuminate\Http\JsonResponse
 {
     $response = [
         'success' => false,
@@ -37,7 +37,7 @@ function sendErrorResponse($error, $errorMessages = [], $code = 404)
 }
 
 
-function userRolePermissions($roleId)
+function userRolePermissions($roleId): \Illuminate\Support\Collection
 {
     return DB::table('permission_role')
     ->where('role_id',$roleId)
@@ -50,7 +50,7 @@ function checkAdminCanSee() :bool
 }
 
 
-function deleteAndEditButton($edit,$delete)
+function deleteAndEditButton($edit,$delete): string
 {
     return "
     <a href='{$edit}}' class='btn btn-sm btn-info'><i class='fa fa-edit'></i></a>
@@ -58,7 +58,8 @@ function deleteAndEditButton($edit,$delete)
     ";
 }
 
-function navMenuActive($url){
+function navMenuActive($url): bool
+{
    // dd($url);
     $items = ["role","permission","admin"];
 
